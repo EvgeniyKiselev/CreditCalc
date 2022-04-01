@@ -17,7 +17,7 @@
 > что можно произвести рассчет, но сохранить информацию не удастся* <br/>
 > <br/>
 > **Вызов Rate.getRate()**<br/>
-> **UICheckForFirstWindow**
+> **UICalcTable**
 > **UICalcWindow**
 > **UICalculationResult**
 > **UIAllCalculationWindow**
@@ -26,19 +26,19 @@
 Класс для хранения и использования настроек и коннекта к бд<br/>
 поля: <br/>
 >**hasConnect (boolean)**<br/>
-**hasTable (boolean)**<br/>
+
 
 ## <span style="color: orange"> DBConnect:
 Класс с запросами к бд<br/>
 > **checkDBConnect()** - *проверяет коннект к БД, присваивает true/false Configuration.hasConnect* <br/>
->**createTable ()** - * если Configuration.hasConnect == true вызывает checkTableExists(), если таблца есть возвращает true, если нет - создает и возвращает true сприсваиваением значения Configuration.hasTable* <br/>
-> **checkTableExists()** - *проверяет есть ли таблица, присваивает true/false Configuration.hasTable* <br/>
-> **getCurrentId()** - *если таблица пустая - генерит первый id, если в таблице есть записи - берет последний id и добавляет инкремент* <br/>
+>**createTable ()** - * если Configuration.hasConnect == true вызывает checkTableExists(), если таблца есть - ичего не делает, 
+> если нет - создает <br/>
+> **checkTableExists()** - *проверяет есть ли таблица, если ее нет - создает* <br/>
 > **insertCalculation()** - *записывает в таблицу новый результат вычислений калькулятора* <br/>
 
 ## <span style="color: orange"> DBQueries:
 Класс с запросами к бд<br/>
-> **insertCalculation()** - *записывает в таблицу новый результат вычислений калькулятора* <br/>
+> **insertCalculation()** - *записывает в таблицу новый результат вычислений калькулятора, проверять, что все необходимые поля есть* <br/>
 > **getCalculationById()** - *возвращает результаты рассчета по id* <br/>
 > **getAllCalculations()** - *возвращает все результаты рассчета* <br/>
 > **deleteCalculationById()** - *удаляет запись с результатами рассчета по id* <br/>
@@ -56,26 +56,33 @@
 **realEstatePrice (BigDecimal)** - *стоимость недвижимости* <br/>
 **initialFee (BigDecimal)** - *первоначальный взнос* <br/>
 **creditTerm (int)** - *срок кредита* <br>
-<br>
-**+ здесь же методы расчета и вызов запроса к бд, который делает запись в таблице**
 
-## <span style="color: orange"> UICheckForFirstWindow:
-Класс , который выбирает какое окно выводить первым<br/>
-> **проверяем Configuration.hasConnect**<br>
-> *-если false выводим окно UINoDBConnect*<br>
-> *-если true выводим окно UICalcWindow*<br>
+## <span style="color: orange"> abstract Calculation:
+методы: <br/>
+>**getCreditAmount (BigDecimal)** - *сумма кредита* <br/>
+**getMonthlyPayment (BigDecimal)** - *ежемесячный платеж* <br/>
+**getRate (BigDecimal)** - *ставка* <br/>
+**getCreditTerm (int)** - *срок кредита* <br>
 
+## <span style="color: orange"> CalculateByPayment extends Calculation:
+методы static(сохраняют результат в CalculationResult): <br/>
+>**метод расчета по ежемесячному платежу** <br/>
 
-## <span style="color: orange"> UINoDBConnect:
-Окно с сообщением о том, что нет возможности сохранить рассчет<br/>
-> *Окно с сообщением:* **В данный момент нет возможности сохранить результат рассчета
+> ## <span style="color: orange"> CalculateByTime extends Calculation:
+методы static(сохраняют результат в CalculationResult): <br/>
+>**метод расчета по сроку кредита** <br/>
+
+## <span style="color: orange"> UICalcTable:
+первое окно<br/>
+> проверяем Configuration.hasConnect, если есть коннект - не делает ничего, если нет выводит сообщение: **В данный момент нет возможности сохранить результат рассчета
 > , но можно произвести рассчет**<br>
-> *кнопка:* **рассчитать ипотеку** - *вызывает UICalcWindow*
-> *кнопка:* *я терпелив, я подожду** - *закрывает программу*
-
+> если есть коннект отрисовывает таблицу с рассчетами, если нет таблица пустая
+> кнопки: **новый рассчет** - открывает UICalcWindow
 
 ## <span style="color: orange"> UICalcWindow:
 Окно калькулятора<br/>
+> проверяем Configuration.hasConnect, если есть коннект - не делает ничего, если нет выводит сообщение: **В данный момент нет возможности сохранить результат рассчета
+> , но можно произвести рассчет**<br>
 > кнопки: **Рассчет по ежемесячному платежу** и **Рассчет по сроку кредита**<br/>
 > **Рассчет по ежемесячному платежу** - *установлена по дефолту*
 ><br/>
@@ -95,7 +102,7 @@
 > страницу UICalculationResult*<br/>
 
 
-## <span style="color: orange"> UICalculationResult
+## <span style="color: orange"> UICalculationResult extends UICalcTable
 таблица:
 > стоимость недвижимости<br/>
 > первоначальный взнос<br/>
