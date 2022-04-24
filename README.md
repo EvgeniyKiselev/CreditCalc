@@ -1,7 +1,5 @@
 # ТЗ Калькулятора ипотеки
 
-## 1я версия:
-
 ### тип данных для вычислений - <span style="color: orange"> long 
 ### Классы:
 
@@ -22,7 +20,7 @@
 > **UICalculationResult**
 > **UIAllCalculationWindow**
 
-## <span style="color: orange"> Configuration:
+## <span style="color: orange"> CalcConfiguration:
 Класс для хранения и использования настроек и коннекта к бд<br/>
 поля: <br/>
 >**hasConnect (boolean)**<br/>
@@ -34,7 +32,6 @@
 >**createTable ()** - * если Configuration.hasConnect == true вызывает checkTableExists(), если таблца есть - ичего не делает, 
 > если нет - создает <br/>
 > **checkTableExists()** - *проверяет есть ли таблица, если ее нет - создает* <br/>
-> **insertCalculation()** - *записывает в таблицу новый результат вычислений калькулятора* <br/>
 
 ## <span style="color: orange"> DBQueries:
 Класс с запросами к бд<br/>
@@ -64,11 +61,11 @@
 **getRate (BigDecimal)** - *ставка* <br/>
 **getCreditTerm (int)** - *срок кредита* <br>
 
-## <span style="color: orange"> CalculateByPayment extends Calculation:
+## <span style="color: orange"> PaymentCalculate extends Calculation:
 методы static(сохраняют результат в CalculationResult): <br/>
 >**метод расчета по ежемесячному платежу** <br/>
 
-> ## <span style="color: orange"> CalculateByTime extends Calculation:
+> ## <span style="color: orange"> CreditTermCalculate extends Calculation:
 методы static(сохраняют результат в CalculationResult): <br/>
 >**метод расчета по сроку кредита** <br/>
 
