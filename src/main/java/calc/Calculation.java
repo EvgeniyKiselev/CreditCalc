@@ -16,19 +16,20 @@ public abstract class Calculation {
     CalculationResult calculationResult = new CalculationResult();
 
 
-    BigDecimal getCreditAmount(){
-        BigDecimal creditAmount;
+    void getCreditAmount(){
         if(calculationResult.getRealEstatePrice().compareTo(calculationResult.getInitialFee()) > 0 ) {
-            creditAmount = calculationResult.getRealEstatePrice().subtract(calculationResult.getInitialFee());
+            calculationResult.setCreditAmount(calculationResult.getRealEstatePrice()
+                    .subtract(calculationResult.getInitialFee()));
         }
         else {
             log.info("Первоначальный взнос больше/равен стоимости недвижимости");
             throw new IllegalStateException();
         }
-        return creditAmount;
     }
 
-    abstract BigDecimal getMonthlyPayment();
+    BigDecimal getMonthlyPayment(){
+        return calculationResult.getMonthlyPayment();
+    };
 
     BigDecimal getRate(){
         return calculationResult.getRate();

@@ -9,9 +9,9 @@ import java.math.BigDecimal;
  */
 
 public class PaymentCalculate extends Calculation{
-    @Override
-    BigDecimal getMonthlyPayment() {
-        return null;
+
+    public static void CalculateMonthlyPayment(){
+
     }
 
     @Override

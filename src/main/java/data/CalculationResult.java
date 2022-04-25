@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 @Data
 public class CalculationResult {
 
-    private long calculationId = 0;
-    private BigDecimal creditAmount = new BigDecimal(0);
-    private BigDecimal monthlyPayment = new BigDecimal(50000);
-    private BigDecimal rate = new BigDecimal(8.3);
-    private BigDecimal realEstatePrice = new BigDecimal(7000000);
-    private BigDecimal initialFee = new BigDecimal(1500000);
-    private int creditTerm = 20;
+    private long calculationId;
+    private BigDecimal creditAmount;
+    private BigDecimal monthlyPayment;
+    private BigDecimal rate;
+    private BigDecimal realEstatePrice;
+    private BigDecimal initialFee;
+    private int creditTerm;
 
 }
