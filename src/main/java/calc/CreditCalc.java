@@ -19,7 +19,8 @@ public class CreditCalc {
         PaymentCalculate paymentCalculate = new PaymentCalculate();
 
         //Этого блока не будет, просто нужно пока откуда то брать данные
-        common:{
+        common:
+        {
             calculationResult.setInitialFee(new BigDecimal(1500000));
             calculationResult.setRealEstatePrice(new BigDecimal(7000000));
             calculationResult.setRate(new BigDecimal(8.3));
@@ -33,9 +34,8 @@ public class CreditCalc {
             calculationResult.setCreditTerm(20);
         }
 
+        System.out.println(paymentCalculate.getMonthlyPayment());
 
-
-
-
+//должно быть примерно 46968,536
     }
 }

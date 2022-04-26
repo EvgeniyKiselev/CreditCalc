@@ -27,13 +27,15 @@ public abstract class Calculation {
         }
     }
 
-    BigDecimal getMonthlyPayment(){
-        return calculationResult.getMonthlyPayment();
-    };
+    abstract BigDecimal getMonthlyPayment();
 
     BigDecimal getRate(){
         return calculationResult.getRate();
     }
 
-    abstract int getCreditTerm();
+    BigDecimal getMonthRate(){
+        return getRate().divide(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(12));
+    }
+
+    abstract int getMonthsCreditTerm();
 }
