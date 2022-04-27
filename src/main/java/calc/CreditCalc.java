@@ -34,6 +34,14 @@ public class CreditCalc {
             calculationResult.setCreditTerm(20);
         }
 
+        if(calculationResult.getRealEstatePrice().compareTo(calculationResult.getInitialFee()) > 0 ) {
+            calculationResult.setCreditAmount(calculationResult.getRealEstatePrice()
+                    .subtract(calculationResult.getInitialFee()));
+        }
+        else {
+            throw new IllegalStateException("Первоначальный взнос больше/равен стоимости недвижимости");
+        }
+
         System.out.println(paymentCalculate.getMonthlyPayment());
 
 //должно быть примерно 46968,536

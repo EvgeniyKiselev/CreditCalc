@@ -17,12 +17,12 @@ public class CreditTermCalculate extends Calculation {
     }
 
     @Override
-    BigDecimal getMonthlyPayment() {
+    public BigDecimal getMonthlyPayment() {
         return null;
     }
 
     @Override
-    int getMonthsCreditTerm() {
+    public int getMonthsCreditTerm() {
         return 0;
     }
 }

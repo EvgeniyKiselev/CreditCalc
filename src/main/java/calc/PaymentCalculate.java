@@ -15,14 +15,14 @@ public class PaymentCalculate extends Calculation {
     CalculationResult calculationResult = new CalculationResult();
 
     @Override
-    BigDecimal getMonthlyPayment() {
+    public BigDecimal getMonthlyPayment() {
         return ((((BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm())).multiply(getMonthRate())).divide(
                 (((BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm())).subtract(BigDecimal.ONE))))
                 .multiply(calculationResult.getCreditAmount());
     }
 
     @Override
-    int getMonthsCreditTerm() {
+    public int getMonthsCreditTerm() {
         return calculationResult.getCreditTerm() * 12;
     }
 }
