@@ -14,14 +14,12 @@ import java.math.BigDecimal;
 public class PaymentCalculate extends Calculation {
     CalculationResult calculationResult = new CalculationResult();
 
-    @Override
     public BigDecimal getMonthlyPayment() {
         return ((((BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm())).multiply(getMonthRate())).divide(
                 (((BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm())).subtract(BigDecimal.ONE))))
                 .multiply(calculationResult.getCreditAmount());
     }
 
-    @Override
     public int getMonthsCreditTerm() {
         return calculationResult.getCreditTerm() * 12;
     }

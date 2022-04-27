@@ -9,10 +9,9 @@ import java.math.BigDecimal;
  * @version 1.0
  * @autor Евгений Киселев
  */
-public abstract class Calculation {
+public class Calculation {
 
     CalculationResult calculationResult = new CalculationResult();
-
 
     public void getCreditAmount(){
         if(calculationResult.getRealEstatePrice().compareTo(calculationResult.getInitialFee()) > 0 ) {
@@ -24,8 +23,6 @@ public abstract class Calculation {
         }
     }
 
-    public abstract BigDecimal getMonthlyPayment();
-
     public BigDecimal getRate(){
         return calculationResult.getRate();
     }
@@ -34,5 +31,4 @@ public abstract class Calculation {
         return getRate().divide(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(12));
     }
 
-    public abstract int getMonthsCreditTerm();
 }
