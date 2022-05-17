@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 public class Calculation {
 
-    CalculationResult calculationResult = new CalculationResult();
+    CalculationResult calculationResult = CalculationResult.getInstance();
 
     public void getCreditAmount(){
         if(calculationResult.getRealEstatePrice().compareTo(calculationResult.getInitialFee()) > 0 ) {
@@ -28,7 +28,9 @@ public class Calculation {
     }
 
     public BigDecimal getMonthRate(){
-        return getRate().divide(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(12));
+        BigDecimal ratePercent = getRate().divide(BigDecimal.valueOf(100));
+
+        return ratePercent.divide(BigDecimal.valueOf(12));
     }
 
 }

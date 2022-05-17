@@ -3,6 +3,7 @@ package calc;
 import data.CalculationResult;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Основной класс для запуска приложения CreditCalc(Кредитный калькулятор)
@@ -14,8 +15,12 @@ import java.math.BigDecimal;
 public class CreditCalc {
     public static void main(String[] args) {
 
-        CalculationResult calculationResult = new CalculationResult();
-        calculationResult.setRate(new BigDecimal("8.3"));
+        CalculationResult calculationResult = CalculationResult.getInstance();
+        calculationResult.setRate(BigDecimal.valueOf(round(8.3, 2)));
+
+        System.out.println(calculationResult.getRate().toString());
+        Calculation calculation = new Calculation();
+        System.out.println(calculation.getMonthRate());
 
         CreditTermCalculate creditTermCalculate = new CreditTermCalculate();
         PaymentCalculate paymentCalculate = new PaymentCalculate();
@@ -38,9 +43,17 @@ public class CreditCalc {
         else {
             throw new IllegalStateException("Первоначальный взнос больше/равен стоимости недвижимости");
         }
-
+        System.out.println(calculation.getMonthRate());
         System.out.println(paymentCalculate.getMonthlyPayment());
 
 //должно быть примерно 46968,536
+    }
+
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

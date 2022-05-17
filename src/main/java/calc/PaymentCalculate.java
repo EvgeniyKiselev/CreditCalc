@@ -12,11 +12,11 @@ import java.math.BigDecimal;
  */
 
 public class PaymentCalculate extends Calculation {
-    CalculationResult calculationResult = new CalculationResult();
+    CalculationResult calculationResult = CalculationResult.getInstance();
 
     public BigDecimal getMonthlyPayment() {
-        return ((((BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm())).multiply(getMonthRate())).divide(
-                (((BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm())).subtract(BigDecimal.ONE))))
+        return ((((BigDecimal.ONE.add(super.getMonthRate())).pow(this.getMonthsCreditTerm())).multiply(super.getMonthRate())).divide(
+                (((BigDecimal.ONE.add(super.getMonthRate())).pow(this.getMonthsCreditTerm())).subtract(BigDecimal.ONE))))
                 .multiply(calculationResult.getCreditAmount());
     }
 
