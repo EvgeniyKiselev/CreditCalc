@@ -3,6 +3,7 @@ package calc;
 import data.CalculationResult;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * Класс с общими методами рассчета кредита
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  * @autor Евгений Киселев
  */
 public class Calculation {
+    private final int PERCENT_MONTHS = 1200;
 
     CalculationResult calculationResult = CalculationResult.getInstance();
 
@@ -28,9 +30,7 @@ public class Calculation {
     }
 
     public BigDecimal getMonthRate(){
-        BigDecimal ratePercent = getRate().divide(BigDecimal.valueOf(100));
-
-        return ratePercent.divide(BigDecimal.valueOf(12));
+        return getRate().divide(BigDecimal.valueOf(PERCENT_MONTHS), MathContext.DECIMAL32);
     }
 
 }

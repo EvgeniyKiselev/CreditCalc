@@ -3,6 +3,8 @@ package calc;
 import data.CalculationResult;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * Класс для рассчета кедита по ежемесячному платежу
@@ -15,9 +17,10 @@ public class PaymentCalculate extends Calculation {
     CalculationResult calculationResult = CalculationResult.getInstance();
 
     public BigDecimal getMonthlyPayment() {
-        return ((((BigDecimal.ONE.add(super.getMonthRate())).pow(this.getMonthsCreditTerm())).multiply(super.getMonthRate())).divide(
-                (((BigDecimal.ONE.add(super.getMonthRate())).pow(this.getMonthsCreditTerm())).subtract(BigDecimal.ONE))))
-                .multiply(calculationResult.getCreditAmount());
+        BigDecimal iPlusOnePowMonths = (BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm());
+        return (((iPlusOnePowMonths).multiply(getMonthRate()))
+                .divide((iPlusOnePowMonths.subtract(BigDecimal.ONE)), RoundingMode.UP))
+                .multiply(calculationResult.getCreditAmount(), MathContext.DECIMAL32);
     }
 
     public int getMonthsCreditTerm() {
