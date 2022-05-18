@@ -18,9 +18,10 @@ public class PaymentCalculate extends Calculation {
 
     public BigDecimal getMonthlyPayment() {
         BigDecimal iPlusOnePowMonths = (BigDecimal.ONE.add(getMonthRate())).pow(getMonthsCreditTerm());
-        return (((iPlusOnePowMonths).multiply(getMonthRate()))
+        calculationResult.setMonthlyPayment((((iPlusOnePowMonths).multiply(getMonthRate()))
                 .divide((iPlusOnePowMonths.subtract(BigDecimal.ONE)), RoundingMode.UP))
-                .multiply(calculationResult.getCreditAmount(), MathContext.DECIMAL32);
+                .multiply(calculationResult.getCreditAmount(), MathContext.DECIMAL32));
+        return calculationResult.getMonthlyPayment();
     }
 
     public int getMonthsCreditTerm() {

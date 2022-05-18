@@ -1,5 +1,7 @@
 package calc;
 
+import data.CalculationResult;
+
 import java.math.BigDecimal;
 
 /**
@@ -10,14 +12,13 @@ import java.math.BigDecimal;
  */
 
 public class CreditTermCalculate extends Calculation {
-
+    CalculationResult calculationResult = CalculationResult.getInstance();
 
     public static void CalculateCreditTerm() {
-
     }
 
     public BigDecimal getMonthlyPayment() {
-        return null;
+        return calculationResult.getMonthlyPayment();
     }
 
     public int getMonthsCreditTerm() {
